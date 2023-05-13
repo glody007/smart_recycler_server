@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from fastai.vision.all import load_learner
 from fastai.vision.all import Image
 from pathlib import Path
@@ -10,9 +10,21 @@ TEMP_IMAGE_NAME = 'test.jpeg'
 
 app = Flask(__name__)
 
+recyclers = {}
+
+def get_type_dechet(pred):
+    if 'banane' in pred:
+        return 'bio'
+    if 'pomme' in pred:
+        return 'bio'
+    if 'bio' in pred:
+        return 'bio'
+    return 'non-bio'
+        
+
 @app.route("/")
 def home():
-    return '<h1>WELCOME TO SR(smart recycler) by chrino kabwe<h1>'
+    return render_template('index.html', recyclers=recyclers)
 
 @app.route("/predict", methods=['POST'])
 def predict():
@@ -23,9 +35,24 @@ def predict():
     learner = load_learner(PATH_TO_MODEL)
     pred, pred_idx, probs = learner.predict(Path(TEMP_IMAGE_NAME))
     return {
-        "pred": pred,
+        "pred": get_type_dechet(pred),
         "pred_idx": pred_idx.item(),
         "probs": probs.tolist()
+    }
+    
+@app.route("/recyclers", methods=['GET'])
+def recyclers_list():
+    return recyclers
+    
+@app.route("/recyclers/data", methods=['POST'])
+def recycler_data():
+    data = request.json
+    if data != None:
+        recyclers[data['name']] = data
+        return data
+        
+    return {
+        "error": True
     }
 
 app.run(host="0.0.0.0", port=8090)

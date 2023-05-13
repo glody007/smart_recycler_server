@@ -1,0 +1,30 @@
+h1, h2, h3, p {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+table,
+td {
+    border: 1px solid #333;
+}
+
+thead,
+tfoot {
+    background-color: #333;
+    color: #fff;
+}
+
+section {
+    margin-top: 20px;
+}
+
+table {
+    margin: auto;
+}
+
+.title {
+    color: slateblue;
+}
+
+.text-center {
+    text-align: center;
+}

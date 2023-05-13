@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SMART RECYCLER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+   <h1 class="title text-center">Welcome SMART RECYCLER DASHBOARD</h1>
+   <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Bio</th>
+                    <th>Non Bio</th>
+                    <th>Metal</th>
+                    <th>Is full</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, recycler in recyclers.items() %}
+                    <tr>
+                        <td>{{recycler['name']}}</td>
+                        <td>{{recycler['levels']['bio']}}</td>
+                        <td>{{recycler['levels']['non-bio']}}</td>
+                        <td>{{recycler['levels']['metal']}}</td>
+                        <td>{{recycler['is_full']}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+   </section>
+</body>
+</html>
