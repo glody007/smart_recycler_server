@@ -29,22 +29,21 @@ def get_type_dechet(pred):
         return 'bio'
     return 'non-bio'
 
-def send_mail():
-    for key, recycler in recyclers.items():
-        if recycler['is_full']:
-            message = Mail(
-                from_email='admin@m-capital.net',
-                to_emails=admin_mails,
-                subject='Sending with Twilio SendGrid is Fun',
-                html_content='<strong>Recycler {} is full</strong>'.format(recycler['name']))
-            try:
-                sg = SendGridAPIClient(send_grid_api_key)
-                response = sg.send(message)
-                print(response.status_code)
-                print(response.body)
-                print(response.headers)
-            except Exception as e:
-                print(e.message)
+def send_mail(recycler):
+    if recycler['is_full']:
+        message = Mail(
+            from_email='admin@m-capital.net',
+            to_emails=admin_mails,
+            subject='Sending with Twilio SendGrid is Fun',
+            html_content='<strong>Recycler {} is full</strong>'.format(recycler['name']))
+        try:
+            sg = SendGridAPIClient(send_grid_api_key)
+            response = sg.send(message)
+            print(response.status_code)
+            print(response.body)
+            print(response.headers)
+        except Exception as e:
+            print(e.message)
         
 
 @app.route("/")
@@ -73,8 +72,14 @@ def recyclers_list():
 def recycler_data():
     data = request.json
     if data != None:
+        is_full = False
+        if recyclers.get(data['name']) != None:
+            is_full = recyclers[data['name']]['is_full']
+        
         recyclers[data['name']] = data
-        send_mail()
+        
+        if data['is_full'] and not is_full:
+            send_mail(data)
         return data
     return {
         "error": True
