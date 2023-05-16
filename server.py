@@ -4,6 +4,14 @@ from fastai.vision.all import Image
 from pathlib import Path
 import io
 import base64
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
+
+send_grid_api_key = 'SEND_GRID_KEY'
+admin_mails = ['18ck040@esisalama.org']
 
 PATH_TO_MODEL = Path('model.pkl')
 TEMP_IMAGE_NAME = 'test.jpeg'
@@ -20,6 +28,23 @@ def get_type_dechet(pred):
     if 'bio' in pred:
         return 'bio'
     return 'non-bio'
+
+def send_mail():
+    for key, recycler in recyclers.items():
+        if recycler['is_full']:
+            message = Mail(
+                from_email='admin@m-capital.net',
+                to_emails=admin_mails,
+                subject='Sending with Twilio SendGrid is Fun',
+                html_content='<strong>Recycler {} is full</strong>'.format(recycler['name']))
+            try:
+                sg = SendGridAPIClient(send_grid_api_key)
+                response = sg.send(message)
+                print(response.status_code)
+                print(response.body)
+                print(response.headers)
+            except Exception as e:
+                print(e.message)
         
 
 @app.route("/")
@@ -49,8 +74,8 @@ def recycler_data():
     data = request.json
     if data != None:
         recyclers[data['name']] = data
+        send_mail()
         return data
-        
     return {
         "error": True
     }
