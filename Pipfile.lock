@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "806116c374d66f8fe78a38cc42623535ed803f860022aa16d51a352148f15dcd"
+            "sha256": "a324b787749db76f0d284e255dff0292cab394620e2ce778193c870eae45621c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -321,6 +321,14 @@
             ],
             "index": "pypi",
             "version": "==2.3.1"
+        },
+        "flask-cors": {
+            "hashes": [
+                "sha256:74efc975af1194fc7891ff5cd85b0f7478be4f7f59fe158102e91abb72bb4438",
+                "sha256:b60839393f3b84a0f3746f6cdca56c1ad7426aa738b70d6c61375857823181de"
+            ],
+            "index": "pypi",
+            "version": "==3.0.10"
         },
         "fonttools": {
             "hashes": [
@@ -959,11 +967,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:23aaf86b85ca52ceb801d32703f12d77517b2556af839621c641fca11287952b",
-                "sha256:f104fa03692a2602fa0fec6c6a9e63b6c8a968de13e17c026957dd1f53d80990"
+                "sha256:5df61bf30bb10c6f756eb19e7c9f3b473051f48db77fddbe06ff2ca307df9a6f",
+                "sha256:62642358adc77ffa87233bc4d2354c4b2682d214048f500964dbe760ccedf102"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==67.7.2"
+            "version": "==67.8.0"
         },
         "six": {
             "hashes": [

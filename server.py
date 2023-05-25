@@ -7,16 +7,18 @@ import base64
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import ssl
+from flask_cors import CORS
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-send_grid_api_key = 'SEND_GRID_KEY'
-admin_mails = ['18ck040@esisalama.org']
+send_grid_api_key = 'API_KEY'
+admin_mails = ['glodymbutwile@gmail.com', 'audrynshidi@gmail.com', '18ck040@esisalama.org']
 
 PATH_TO_MODEL = Path('model.pkl')
 TEMP_IMAGE_NAME = 'test.jpeg'
 
 app = Flask(__name__)
+CORS(app)
 
 recyclers = {}
 
@@ -49,6 +51,13 @@ def send_mail(recycler):
 @app.route("/")
 def home():
     return render_template('index.html', recyclers=recyclers)
+
+@app.route("/api-token-auth/", methods=['POST'])
+def apit_token():
+    return {
+        "token": "token"
+    }
+
 
 @app.route("/predict", methods=['POST'])
 def predict():
