@@ -23,12 +23,8 @@ CORS(app)
 recyclers = {}
 
 def get_type_dechet(pred):
-    if 'banane' in pred:
-        return 'bio'
-    if 'pomme' in pred:
-        return 'bio'
-    if 'bio' in pred:
-        return 'bio'
+    if 'bouteille' in pred:
+        return 'non-bio'
     return 'bio'
 
 def send_mail(recycler):
