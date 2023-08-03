@@ -11,7 +11,7 @@ from flask_cors import CORS
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
-send_grid_api_key = 'API_KEY'
+send_grid_api_key = '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'
 admin_mails = ['glodymbutwile@gmail.com', 'audrynshidi@gmail.com', '18ck040@esisalama.org']
 
 PATH_TO_MODEL = Path('model.pkl')
@@ -29,7 +29,7 @@ def get_type_dechet(pred):
         return 'bio'
     if 'bio' in pred:
         return 'bio'
-    return 'non-bio'
+    return 'bio'
 
 def send_mail(recycler):
     if recycler['is_full']:
